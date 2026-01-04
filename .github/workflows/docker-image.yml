@@ -52,6 +52,14 @@ jobs:
         run: |
           ## Actualizamos el Tag en el deployment usando el yq
           yq -i '.spec.template.spec.containers[0].image = "ping-prueba:$GITHUB_ENV"' ./k8s/k8s-deployment.yaml
+
+      - name: Commit los cambios por el archivo de deploym,ent
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@noreplay"
+          add k8s/k8s-deployment.yaml
+          git commit -m 'Actualización automática'
+          
           
           
           
