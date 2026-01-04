@@ -12,42 +12,44 @@ jobs:
 
     steps:
       ## Checkout de la versión actual del repositorio
-      - name: Checkout repository
+      - name: Checkout de la versión actual del repositorio
         uses: actions/checkout@v4
 
       ## Configuramos las credenciales para conectarlos al AWS por medio del usuario AIM
-      - name: Configure AWS credentials
+      - name: Configuramos las credenciales para conectarlos al AWS por medio del usuario AIM
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      ## ingresamos al registro
-      - name: Login to Amazon ECR
+      ## Ingresamos al ECR
+      - name: Ingresamos al ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      ## generamos la Imagen y la enviamos al registro correspondiente
-      - name: Build, tag, and push image to Amazon ECR
+      ## Preparamos y Generamos la Imagen y la enviamos al ECR
+      - name: Preparamos y Generamos la Imagen y la enviamos al ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_URI }}
           IMAGE_TAG: latest
-        ## ejecutamos los siguiente comandos
         run: |
+        
           # Build the Docker image
           docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
 
           # Push the image to ECR
           docker push $ECR_REPOSITORY:$IMAGE_TAG
 
-      - name: Instalar el YQ para actualizar el Manifiesto
+      - name: Instalar el YQ para poder actualizar el Manifiesto
         run: |
           sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
           sudo chmod +x /usr/bin/yq
-      - name: Get current datetime
+          
+      - name: Obtenemos la fecha y hora en un formato adecuado
         run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+        
       - name: Actualizar el archivo deployment.yaml con la ultima versión del docker
         run: |
           ## Actualizamos el Tag en el deployment usando el yq
@@ -56,8 +58,9 @@ jobs:
        ## Aplicamos Commit y Push
        ## Para el caso del Push vamos a requerir un permiso especial, para otorgarlo hacemos lo siguiente
        ## Desde el manel principal del proyecto seleccionamos Settings --> Actions (lado izquiero) --> General -->
-       ## vamos a la sección de Workflow permissions y seleccionamos la opción de Read repository contents and packages permissions
-      - name: Commit & Push de los cambios por el archivo de deploym,ent
+       ## vamos a la sección de Workflow permissions y seleccionamos la opción de Read repository contents 
+       ## and packages permissions y finalmente hacemos clic en el botón de Save para aplicar los cambios
+      - name: Hacemos Commit & Push de los cambios por el archivo de deployment en el repositorio
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@noreply"
