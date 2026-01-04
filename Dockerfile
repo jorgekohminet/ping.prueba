@@ -1,3 +1,31 @@
+## docker file multistage build
+
+## ############################################################
+## etapa de construcción 
+## ############################################################
+
+## Usamos la imagen jdk y maven para construir nuestro jar
+FROM maven:3.8-jdk-17 AS build
+
+# Establecemos el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiamos el archivo pom.xml y las dependencias primero para aprovechar el cache de Docker
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copiamos el código fuente de tu aplicación
+COPY src src
+
+# Empaquetamos la aplicación en un archivo JAR
+RUN mvn package -DskipTests
+
+
+## ############################################################
+## etapa final 
+## ############################################################
+
+
 # Definimos el SO Linux Alpine con jdk17 incluido
 FROM amazoncorretto:17-alpine
 
