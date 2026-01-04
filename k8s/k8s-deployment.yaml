@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: ping-app
-          image: ping-prueba:v1
+          image: ping-prueba:$GITHUB_ENV
           ports:
             - containerPort: 30300
