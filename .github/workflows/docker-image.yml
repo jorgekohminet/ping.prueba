@@ -1,18 +1,45 @@
-name: Kubernetes CI
+name: Build and Push Docker Image to AWS ECR
+
+## Ejecutamos por cada push
 on:
   push:
     branches:
       - main
 
 jobs:
-  ping-prueba:
+  build-and-push:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check Out del Proyecto
+      ## Checkout de la versión actual del repositorio
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Construir la IMagen del Contenedor (Docker)
-        run: "docker build -t jzavala/gha-ping-prueba:$GITHUB_SHA ."
-        
-    
-  
+      ## Configuramos las credenciales para conectarlos al AWS por medio del usuario AIM
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      ## ingresamos al registro
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      ## generamos la Imagen y la enviamos al registro correspondiente
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_URI }}
+          IMAGE_TAG: latest
+        ## ejecutamos los siguiente comandos
+        run: |
+          # Build the Docker image
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+
+          # Push the image to ECR
+          docker push $ECR_REPOSITORY:$IMAGE_TAG
+
+          
