@@ -1,0 +1,18 @@
+name: Kubernetes CI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ping-prueba:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out del Proyecto
+        uses: actions/checkout@v4
+
+      - name: Construir la IMagen del Contenedor (Docker)
+        run: "docker build -t jzavala/gha-ping-prueba:$GITHUB_SHA ."
+        
+    
+  
