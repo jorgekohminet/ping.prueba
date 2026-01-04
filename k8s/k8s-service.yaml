@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ping-prueba-service
+  labels:
+    app: ping-prueba
+spec:
+  selector:
+    app: ping-prueba
+  ports:
+    - protocol: TCP
+      port: 30300
+      targetPort: 30300
+  type: LoadBalamce
+
+
+
