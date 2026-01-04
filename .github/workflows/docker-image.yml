@@ -59,6 +59,8 @@ jobs:
           git config user.email "github-actions@noreply"
           git add k8s/k8s-deployment.yaml
           git commit -m 'Actualización automática'
+          git push origin main
+
           
           
           
