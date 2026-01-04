@@ -53,7 +53,11 @@ jobs:
           ## Actualizamos el Tag en el deployment usando el yq
           yq -i '.spec.template.spec.containers[0].image = "ping-prueba:$GITHUB_ENV"' ./k8s/k8s-deployment.yaml
 
-      - name: Commit los cambios por el archivo de deploym,ent
+       ## Aplicamos Commit y Push
+       ## Para el caso del Push vamos a requerir un permiso especial, para otorgarlo hacemos lo siguiente
+       ## Desde el manel principal del proyecto seleccionamos Settings --> Actions (lado izquiero) --> General -->
+       ## vamos a la sección de Workflow permissions y seleccionamos la opción de Read repository contents and packages permissions
+      - name: Commit & Push de los cambios por el archivo de deploym,ent
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@noreply"
