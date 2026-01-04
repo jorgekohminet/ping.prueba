@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 public class PingController {
 
     /**
+     * La siguiente es la url a utilizar en ambiente de desarrollo
      * URL: http://localhost:30300/ejemploPing/start/ping
      * @return
      */
