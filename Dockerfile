@@ -34,8 +34,7 @@ WORKDIR /app
 
 # copiamos la aplicación que se encuentra en la capeta del target, y la pegamos en la carpera raiz del contenedsor
 # Agregamos una variable o ARGUMENTO ARG que va a tener el siguiente valor JAR_FILE is a build argument you pass when running 'docker build'
-ARG JAR_FILE=./target/ping.prueba-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} /app/app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Definimos el puerto por el cual se expondra la aplicación dentro del contenedor
 EXPOSE 30300
