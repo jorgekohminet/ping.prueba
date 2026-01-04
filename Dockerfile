@@ -5,7 +5,7 @@
 ## ############################################################
 
 ## Usamos la imagen jdk y maven para construir nuestro jar
-FROM maven:3.8-jdk-17 AS build
+FROM maven:3.8.5-openjdk-17 AS build
 
 # Establecemos el directorio de trabajo dentro del contenedor
 WORKDIR /app
