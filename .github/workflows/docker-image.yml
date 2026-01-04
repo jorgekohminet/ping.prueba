@@ -59,7 +59,7 @@ jobs:
        ## Para el caso del Push vamos a requerir un permiso especial, para otorgarlo hacemos lo siguiente
        ## Desde el manel principal del proyecto seleccionamos Settings --> Actions (lado izquiero) --> General -->
        ## vamos a la sección de Workflow permissions y seleccionamos la opción de Read repository contents 
-       ## and packages permissions y finalmente hacemos clic en el botón de Save para aplicar los cambios
+       ## and packages permissions y finalmente hacemos clic en el botón de Save para aplicar los cambios  
       - name: Hacemos Commit & Push de los cambios por el archivo de deployment en el repositorio
         run: |
           git config user.name "github-actions[bot]"
