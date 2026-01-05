@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: ping-app
-          image: ping-prueba:$GITHUB_ENV
+          image: ping-prueba:/home/runner/work/_temp/_runner_file_commands/set_env_6ec54b95-9e98-48e0-832c-78298f7a7b64
           ports:
             - containerPort: 30300
