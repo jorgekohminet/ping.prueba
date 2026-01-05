@@ -11,7 +11,7 @@ spec:
     - protocol: TCP
       port: 30300
       targetPort: 30300
-  type: LoadBalamce
+  type: LoadBalance
 
 
 
