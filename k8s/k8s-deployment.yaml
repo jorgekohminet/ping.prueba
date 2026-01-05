@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: ping-app
-          image: ping-prueba:/home/runner/work/_temp/_runner_file_commands/set_env_d450f9c5-ef29-4f50-b858-44f35
+          image: ping-prueba:e7d8f59
           ports:
             - containerPort: 30300
