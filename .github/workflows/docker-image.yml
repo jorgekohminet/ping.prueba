@@ -53,7 +53,7 @@ jobs:
       - name: Actualizar el archivo deployment.yaml con la ultima versión del docker
         run: |
           ## Actualizamos el Tag en el deployment usando el yq
-          yq -i '.spec.template.spec.containers[0].image = "ping-prueba:'"${GITHUB_ENV::7}"'"' ./k8s/k8s-deployment.yaml
+          yq -i '.spec.template.spec.containers[0].image = "ping-prueba:'"${GITHUB_ENV::-7}"'"' ./k8s/k8s-deployment.yaml
 
        ## Aplicamos Commit y Push
        ## Para el caso del Push vamos a requerir un permiso especial, para otorgarlo hacemos lo siguiente
