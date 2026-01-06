@@ -15,7 +15,7 @@ spec:
         app: ping-prueba
     spec:
       containers:
-        - name: ping-app
-          image: ping-prueba:61f683c
+        - name: ping-prueba
+          image: ping-prueba:9fbe751
           ports:
             - containerPort: 20200
