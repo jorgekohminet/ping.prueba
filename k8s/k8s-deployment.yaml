@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ping-prueba
 spec:
-  replicas: 5
+  replicas: 6
   selector:
     matchLabels:
       app: ping-prueba
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: ping-prueba
-          image: ping-prueba:cfbe2d9
+          image: ping-prueba:latest
           ports:
             - containerPort: 20200
