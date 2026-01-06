@@ -12,6 +12,3 @@ spec:
       port: 20200
       targetPort: 20200
   type: NodePort
-
-
-

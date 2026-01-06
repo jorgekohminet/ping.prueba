@@ -1,11 +1,11 @@
 apiVersion: apps/v1
-king: Deployment
+kind: Deployment
 metadata:
-  name: ping-prueba
+  name: ping-prueba-deployment
   labels:
     app: ping-prueba
 spec:
-  replicar: 2
+  replicas: 5
   selector:
     matchLabels:
       app: ping-prueba
