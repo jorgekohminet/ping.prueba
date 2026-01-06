@@ -1,5 +1,6 @@
 package com.ejemplo.ping.prueba.controller;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,25 @@ public class PingController {
         retorno = "Ping recibido el dia u hora: " + sdf.format(fechaPing);
         return retorno;
     }
+
+
+    @GetMapping(path = "/saludo/{usuario}")
+    public String pingGet(@PathParam("usuario") String usuario){
+        java.util.Date fechaPing = new java.util.Date();
+        String retorno = null;
+
+        if(usuario==null){
+            retorno = "Debes de proporcionarme un usuario";
+            return retorno;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        retorno = "Ping recibido el dia u hora: " + sdf.format(fechaPing) + "\n" +
+                "Saludos desde AWS el usuario: " + usuario;
+
+        return retorno;
+    }
+
 
 
 }

@@ -10,7 +10,7 @@ FROM maven:3.8.5-openjdk-17 AS build
 # Establecemos el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiamos el archivo pom.xml y las dependencias primero para aprovechar el cache de Docker
+# Copiamos el archivo pom.xml y las dependencias primero
 COPY pom.xml .
 RUN mvn dependency:go-offline
 
@@ -22,7 +22,7 @@ RUN mvn package -DskipTests
 
 
 ## ############################################################
-## etapa final 
+## etapa de construcción del contenedor
 ## ############################################################
 
 
@@ -43,6 +43,6 @@ EXPOSE 30300
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
-## 1. Ejecutamos el siguiente programa para construir ewl contenedor
+## 1. Ejecutamos el siguiente programa para construir ewl contenedor en el sistema local
 ## docker build --build-arg JAR_FILE=target/ping.prueba-0.0.1-SNAPSHOT.jar -t ping-prueba-short .
 ## cAMBIOS
