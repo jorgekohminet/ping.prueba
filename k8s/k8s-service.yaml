@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ping-prueba-service
+  name: ping-prueba
   labels:
     app: ping-prueba
 spec:
