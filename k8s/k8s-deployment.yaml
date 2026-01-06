@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ping-prueba
 spec:
-  replicar: 1
+  replicar: 4
   selector:
     matchLabels:
       app: ping-prueba
