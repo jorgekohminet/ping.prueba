@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: ping-prueba
-          image: ping-prueba:latest
+          image: ping-prueba:f7c2476
           ports:
             - containerPort: 20200
